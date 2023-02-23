@@ -27,9 +27,11 @@ exports.findAll = async (req, res, next) => {
 
     try {
         const contactService = new ContactService(MongoDB.client);
-        const {name} = req.query;
+        const {name, address} = req.query;
         if(name) {
             documents = await contactService.findByName(name);
+        } else if (address) {
+            documents = await contactService.findByAdress(address);
         } else {
             documents = await contactService.find({});
         }
